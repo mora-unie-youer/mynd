@@ -11,7 +11,7 @@ fn parse_heading_level(input: &str) -> Option<(&str, usize, &str)> {
         return None;
     }
 
-    let (level, heading) = match line.split_once(' ') {
+    let (level, heading) = match line.split_once(char::is_whitespace) {
         Some((level, heading)) => {
             if level.chars().all(|c| c == '*') {
                 (level.len(), heading.trim_start())

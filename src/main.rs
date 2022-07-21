@@ -5,7 +5,7 @@ fn extract_line(input: &str) -> (&str, &str) {
     }
 }
 
-fn parse_heading_level(input: &str) -> Option<(&str, usize, &str)> {
+fn parse_heading_level(input: &str) -> Option<(&str, (usize, &str))> {
     let (line, other) = extract_line(input);
     if !line.starts_with('*') {
         return None;
@@ -22,7 +22,7 @@ fn parse_heading_level(input: &str) -> Option<(&str, usize, &str)> {
         None => return None,
     };
 
-    Some((other, level, heading))
+    Some((other, (level, heading)))
 }
 
 fn main() {

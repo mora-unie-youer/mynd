@@ -25,6 +25,21 @@ fn parse_heading_level(input: &str) -> Option<(&str, (usize, &str))> {
     Some((other, (level, heading)))
 }
 
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn parse_heading_level_works() {
+        assert_eq!(parse_heading_level(""), None);
+        assert_eq!(parse_heading_level("*"), None);
+        assert_eq!(parse_heading_level("*a"), None);
+        assert_eq!(parse_heading_level("* "), Some(("", (1, ""))));
+        assert_eq!(parse_heading_level("** Test"), Some(("", (2, "Test"))));
+        assert_eq!(parse_heading_level("**  Test"), Some(("", (2, "Test"))));
+    }
+}
+
 fn main() {
     println!("Hello, world!");
 }

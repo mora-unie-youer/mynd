@@ -5,6 +5,20 @@ fn extract_line(input: &str) -> (&str, &str) {
     }
 }
 
+fn parse_keyword(input: &str) -> Option<(&str, (&str, &str))> {
+    let (line, other) = extract_line(input);
+    if !line.starts_with("#+") {
+        return None;
+    }
+
+    let (key, value) = match line.split_once(':') {
+        Some((key, value)) => (&key[2..], value.trim()),
+        None => return None,
+    };
+
+    Some((other, (key, value)))
+}
+
 fn parse_heading_level(input: &str) -> Option<(&str, (usize, &str))> {
     let (line, other) = extract_line(input);
     if !line.starts_with('*') {

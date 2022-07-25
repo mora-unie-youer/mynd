@@ -44,6 +44,16 @@ mod tests {
     use super::*;
 
     #[test]
+    fn parse_keyword_works() {
+        assert_eq!(parse_keyword(""), None);
+        assert_eq!(parse_keyword("#+"), None);
+        assert_eq!(parse_keyword("#+NAME"), None);
+        assert_eq!(parse_keyword("#+NAME:"), Some(("", ("NAME", ""))));
+        assert_eq!(parse_keyword("#+NAME: VAL"), Some(("", ("NAME", "VAL"))));
+        assert_eq!(parse_keyword("#+NAME:  VAL"), Some(("", ("NAME", "VAL"))));
+    }
+
+    #[test]
     fn parse_heading_level_works() {
         assert_eq!(parse_heading_level(""), None);
         assert_eq!(parse_heading_level("*"), None);
